@@ -1,0 +1,15 @@
+[package]
+documentation = "Hello world embedded rust on espressif chip"
+edition = "2024"
+name = "hello-world"
+authors.workspace = true
+rust-version.workspace = true
+version = "0.1.0"
+readme = "../docs/src/02_hello_world.md"
+
+[dependencies]
+esp-hal.workspace = true
+esp-bootloader-esp-idf.workspace = true
+esp-backtrace.workspace = true
+esp-println.workspace = true
+log.workspace = true
