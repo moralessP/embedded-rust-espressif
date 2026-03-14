@@ -37,7 +37,7 @@ esp_bootloader_esp_idf::esp_app_desc!();
 - The `esp-println` crate as our logger implementation
 
 ```rust
-use log::{debug, info, warn, error};
+use log::*;
 ```
 ## Code structure
 ### Logger initialization
@@ -57,9 +57,9 @@ This value is configured in `.cargo/config.toml`.
 # emmbedded-rust-espressif/.cargo/config.toml
 
 [env]
-ESP_LOG = "debug"
+ESP_LOG = "info"
 ```
-This configuration means that all log messages with a level equal to or higher than `debug` will be displayed.
+This configuration means that all log messages with a level equal to or higher than `info` will be displayed.
 
 ### Peripheral Initialization
 
@@ -88,7 +88,6 @@ A delay of 500 ms is then applied before repeating.
 
 ```rust
 loop {
-    debug!("Hello, World!");
     info!("Hello, World!");
     warn!("Hello, World!");
     error!("Hello, World!");
@@ -101,7 +100,6 @@ loop {
 The serial monitor should display the “Hello, World!” message repeatedly with different log levels, separated by 500 ms.
 
 ```bash
-DEBUG - Hello, World!
 INFO - Hello, World!
 WARN - Hello, World!
 ERROR - Hello, World!

@@ -3,7 +3,7 @@
 
 use esp_backtrace as _;
 use esp_hal::{Config, delay::Delay};
-use log::{debug, info, warn, error};
+use log::*;
 
 esp_bootloader_esp_idf::esp_app_desc!();
 
@@ -14,7 +14,6 @@ fn main() -> ! {
     let delay = Delay::new();
 
     loop {
-        debug!("Hello, World!");
         info!("Hello, World!");
         warn!("Hello, World!");
         error!("Hello, World!");
