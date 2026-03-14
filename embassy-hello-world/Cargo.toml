@@ -1,0 +1,17 @@
+[package]
+documentation = "Async Hello world embedded rust on espressif chip"
+name = "embassy-hello-world"
+version = "0.1.0"
+edition = "2024"
+authors.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+esp-hal.workspace = true
+esp-bootloader-esp-idf.workspace = true
+esp-backtrace.workspace = true
+esp-println.workspace = true
+log.workspace = true
+esp-rtos.workspace = true
+embassy-executor.workspace = true
+embassy-time.workspace = true
