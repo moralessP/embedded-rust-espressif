@@ -1,0 +1,16 @@
+[package]
+documentation = "Led RGB using RMT peripheral"
+edition = "2024"
+name = "led-rgb"
+authors.workspace = true
+rust-version.workspace = true
+version = "0.1.0"
+
+[dependencies]
+esp-hal.workspace = true
+esp-bootloader-esp-idf.workspace = true
+esp-backtrace.workspace = true
+esp-println.workspace = true
+log.workspace = true
+esp-hal-smartled = { version = "0.17.0", features = ["esp32s3"]}
+smart-leds = "0.4.0"

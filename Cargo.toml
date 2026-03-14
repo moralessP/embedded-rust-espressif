@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["hello-world"]
+members = ["hello-world", "led-rgb"]
 
 [workspace.package]
 authors = ["Moraless Philius"]
