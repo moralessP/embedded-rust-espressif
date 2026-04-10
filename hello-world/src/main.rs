@@ -3,7 +3,7 @@
 
 use esp_backtrace as _;
 use esp_hal::{Config, delay::Delay};
-use log::*;
+use log::info;
 
 esp_bootloader_esp_idf::esp_app_desc!();
 
@@ -15,8 +15,6 @@ fn main() -> ! {
 
     loop {
         info!("Hello, World!");
-        warn!("Hello, World!");
-        error!("Hello, World!");
         delay.delay_millis(500);
     }
 }

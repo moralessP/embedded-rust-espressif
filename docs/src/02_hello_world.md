@@ -1,6 +1,6 @@
 # Hello World
 
-In this first program, the goal is to print “Hello, World!” to the serial monitor using different log levels.
+In this first program, the goal is to print “Hello, World!” to the serial monitor.
 This example introduces the basic structure of a `no_std` embedded Rust application on Espressif chips.
 
 ## Crates
@@ -10,7 +10,7 @@ This example introduces the basic structure of a `no_std` embedded Rust applicat
 
 In a `no_std` environment, Rust does not provide the standard runtime. Therefore, the hardware abstraction layer (HAL) is responsible for low-level system initialization.
 
-The delay functionality provided by `esp-hal` is used to pause execution between log messages. This makes it possible to print “Hello, World!” with different log levels separated by 500 ms.
+The delay functionality provided by `esp-hal` is used to pause execution between log messages. This makes it possible to print “Hello, World!” separated by 500 ms.
 
 ```rust
 use esp_hal::{Config, delay::Delay};
@@ -83,24 +83,20 @@ For the moment it is not an issue since no other tasks are running concurrently.
 
 ### Main loop
 
-Inside the loop, “Hello, World!” is printed using different log levels.
+Inside the loop, “Hello, World!” is printed using *info* log level.
 A delay of 500 ms is then applied before repeating.
 
 ```rust
 loop {
     info!("Hello, World!");
-    warn!("Hello, World!");
-    error!("Hello, World!");
     delay.delay_millis(500);
 }
 ```
 
 ## Monitor output
 
-The serial monitor should display the “Hello, World!” message repeatedly with different log levels, separated by 500 ms.
+The serial monitor should display the “Hello, World!” message separated by 500 ms.
 
 ```bash
 INFO - Hello, World!
-WARN - Hello, World!
-ERROR - Hello, World!
 ```
