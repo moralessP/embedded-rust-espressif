@@ -12,9 +12,8 @@ Refer to the [Software Installation Guide](docs/src/01_2_software.md) instructio
 
 This repository is organized as follows:
 
- - `docs/` - Documentations for each project
- - `scr/` - Source code for each project
- - `.cargo/` - Shared Configuration (Rust flags, environment variables...)
+ - `Documentation` - Documentations for each project
+ - `.cargo` - Shared Configuration (Rust flags, environment variables...)
  - `Cargo.toml` - Workspace configuration file
  - `rust-toolchain.toml` - Toolchain configuration
 

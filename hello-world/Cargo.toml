@@ -5,7 +5,7 @@ name = "hello-world"
 authors.workspace = true
 rust-version.workspace = true
 version = "0.1.0"
-readme = "../docs/src/02_hello_world.md"
+readme = "../Documentation/src/02_hello_world.md"
 
 [dependencies]
 esp-hal.workspace = true
