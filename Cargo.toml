@@ -1,6 +1,6 @@
 [workspace]
 resolver = "3"
-members = ["analog-adc","embassy-hello-world", "hello-world", "led-rgb"]
+members = ["analog-adc", "embassy/*", "hello-world", "led-rgb"]
 
 [workspace.package]
 authors = ["Moraless Philius"]
