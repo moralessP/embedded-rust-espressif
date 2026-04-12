@@ -6,7 +6,7 @@
 
 Before getting started make sure Rust and the required tools for programming Espressif chips are proprely installed.
 
-Refer to the [Software Installation Guide](docs/src/01_2_software.md) instructions.
+Refer to the [Software Installation Guide](Documentation/src/01_2_software.md) instructions.
 
 ## Repository structure
 

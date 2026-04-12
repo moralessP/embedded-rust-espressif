@@ -1,102 +1,89 @@
 # Hello World
 
-In this first program, the goal is to print “Hello, World!” to the serial monitor.
-This example introduces the basic structure of a `no_std` embedded Rust application on Espressif chips.
+This program prints **Hello, World!** to the serial monitor every 500 ms.
+It shows the basic structure of a `no_std` Rust application on an Espressif chip. 
 
 ## Crates
-### esp-hal
 
-`esp-hal` allows board configuration and initialization. It also provides the `main` entry point required for `no_std` applications.
+- `esp-hal` -> Initializes the board and provides delay
+- `esp-bootloader-esp-idf` -> Ready-to-use Espressif 2nd stage bootloader
+- `esp-backtrace` ->  Handles panic (debug)
+- `log` + `esp-println` -> Print messages to the serial monitor 
 
-In a `no_std` environment, Rust does not provide the standard runtime. Therefore, the hardware abstraction layer (HAL) is responsible for low-level system initialization.
-
-The delay functionality provided by `esp-hal` is used to pause execution between log messages. This makes it possible to print “Hello, World!” separated by 500 ms.
-
-```rust
-use esp_hal::{Config, delay::Delay};
-```
-### esp-backtrace
-
-`esp-backtrace` provides panic handling and prints useful debugging information if the program crashes.
+## Code
 
 ```rust
+#![no_std]
+#![no_main]
+
 use esp_backtrace as _;
-```
-### esp-bootloader-esp-idf
+use esp_hal::{Config, delay::Delay};
+use log::info;
 
-Espressif provides a ready-to-use bootloader through the `esp-bootloader-esp-idf` crate.
-This ensures that the firmware starts and runs properly on the board.
-
-```rust
 esp_bootloader_esp_idf::esp_app_desc!();
-```
-### log and esp-println
 
-`log` and `esp-println` crates are usefull to print messages with different log levels:
-- The `log` crate for log macros like `debug!`, `info!`, `warn!`, `error!`
-- The `esp-println` crate as our logger implementation
+#[esp_hal::main]
+fn main() -> ! {
+    // Initialize logger
+    esp_println::logger::init_logger_from_env();
 
-```rust
-use log::*;
-```
-## Code structure
-### Logger initialization
+    // Initialize hardware
+    let _peripherals = esp_hal::init(Config::default());
 
-The first step in `main` is logger initialization.
+    // Create delay
+    let delay = Delay::new();
 
-```rust
-esp_println::logger::init_logger_from_env();
-```
-
-This is important because any function called afterward can use logging macros.
-A maximum log level must be defined for the logger.
-
-This value is configured in `.cargo/config.toml`.
-
-```toml
-# emmbedded-rust-espressif/.cargo/config.toml
-
-[env]
-ESP_LOG = "info"
-```
-This configuration means that all log messages with a level equal to or higher than `info` will be displayed.
-
-### Peripheral Initialization
-
-Next, the board peripherals are initialized.
-In this example, no specific peripheral is actively used, so the default configuration provided by `esp-hal` is sufficient.
-
-```rust
-let _peripherals = esp_hal::init(Config::default());
-```
-
-### Delay initialization
-
-To use delays, a `Delay` instance must be initialized.
-
-```rust
-let delay = Delay::new();
-```
-The delay function blocks execution for a specified duration.
-Blocking delays can be problematic in more complex systems because they pause all execution during that time.
-For the moment it is not an issue since no other tasks are running concurrently.
-
-### Main loop
-
-Inside the loop, “Hello, World!” is printed using *info* log level.
-A delay of 500 ms is then applied before repeating.
-
-```rust
-loop {
-    info!("Hello, World!");
-    delay.delay_millis(500);
+    // Main loop
+    loop {
+        info!("Hello, World!");
+        delay.delay_millis(500);
+    }
 }
 ```
 
 ## Monitor output
 
-The serial monitor should display the “Hello, World!” message separated by 500 ms.
-
 ```bash
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xa (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40378eb1
+SPIWP:0xee
+Octal Flash Mode Enabled
+For OPI Flash, Use Default Flash Boot Mode
+mode:SLOW_RD, clock div:2
+load:0x3fce2820,len:0x158c
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f34
+entry 0x403c8924
+I (43) boot: ESP-IDF v5.5.1-838-gd66ebb86d2e 2nd stage bootloader
+I (43) boot: compile time Nov 26 2025 12:27:56
+I (43) boot: Multicore bootloader
+I (45) boot: chip revision: v0.1
+I (47) boot: efuse block revision: v1.2
+I (51) boot.esp32s3: Boot SPI Speed : 40MHz
+I (55) boot.esp32s3: SPI Mode       : SLOW READ
+I (59) boot.esp32s3: SPI Flash Size : 32MB
+I (63) boot: Enabling RNG early entropy source...
+I (67) boot: Partition Table:
+I (70) boot: ## Label            Usage          Type ST Offset   Length
+I (76) boot:  0 nvs              WiFi data        01 02 00009000 00006000
+I (83) boot:  1 phy_init         RF data          01 01 0000f000 00001000
+I (89) boot:  2 factory          factory app      00 00 00010000 00fa0000
+I (96) boot: End of partition table
+I (99) esp_image: segment 0: paddr=00010020 vaddr=3c000020 size=01ab4h (  6836) map
+I (109) esp_image: segment 1: paddr=00011adc vaddr=3fc89790 size=00708h (  1800) load
+I (115) esp_image: segment 2: paddr=000121ec vaddr=40378000 size=01790h (  6032) load
+I (124) esp_image: segment 3: paddr=00013984 vaddr=00000000 size=0c694h ( 50836)
+I (147) esp_image: segment 4: paddr=00020020 vaddr=42010020 size=03cb0h ( 15536) map
+I (154) boot: Loaded app from partition at offset 0x10000
+I (154) boot: Disabling RNG early entropy source...
+INFO - Hello, World!
+INFO - Hello, World!
+INFO - Hello, World!
 INFO - Hello, World!
 ```
+
+## Diagram 
+
+![Hello World diagram](images/hello_world_diagram.png)
