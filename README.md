@@ -26,24 +26,24 @@ git clone https://github.com/moralessP/embedded-rust-espressif
 cd embedded-rust-espressif
 ```
 
-### 2. Build the projects
+### 2. Install `just`
 
-To build all projects in the Workspace
+This poject uses [just](https://github.com/casey/just) as a command runner to simplify building and flashing firmware.
 
-```bash
-cargo build --release
-```
-
-To build  a specific project only
-
-```
-cargo build --release -p <project_name>
-```
-
-### 3. Flash and Run a Project
-
-Make sure your board is connected to your PC via USB before flashing.
 
 ```bash
-cargo run --release -p <project_name>
+cargo install just
+```
+
+### 3. Build a project
+
+
+```bash
+just build-esp32s3 <pkg>
+```
+
+### 4. Flash a firmware
+
+```bash
+just flash-esp32s3 <pkg>
 ```
